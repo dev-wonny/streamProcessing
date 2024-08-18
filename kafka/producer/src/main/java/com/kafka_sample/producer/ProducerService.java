@@ -1,0 +1,24 @@
+package com.kafka_sample.producer;
+
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+
+public class ProducerService {
+
+	private final KafkaTemplate<String, String> kafkaTemplate;
+
+
+	public ProducerService(KafkaTemplate<String, String> kafkaTemplate) {
+		this.kafkaTemplate = kafkaTemplate;
+	}
+
+	public void sendMessage(String topic, String key, String message) {
+		for (int i = 0; i < 10; i++) {
+
+			kafkaTemplate.send(topic, key, message + " " + i);
+		}
+
+	}
+}
